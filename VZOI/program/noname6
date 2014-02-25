@@ -1,0 +1,31 @@
+<!-- Begin Publishing Scripts of Flash Menu menu -->
+<div id="fm_placeholder_menu" style="width: 1004px; height: 28px ">
+Loading Flash Menu</div><script type="text/javascript" defer>//<![CDATA[
+var fm_menu = function() {
+  function getPos() {
+    var p=[0,0]; var e=document.getElementById('fm_placeholder_menu');
+    do { p[0]+=e.offsetTop; p[1]+=e.offsetLeft; } while (e=e.offsetParent); return p; }
+  function move() {
+    var p=getPos(); var m=document.getElementById('fm_wrapper_menu'); m.style.top=p[0]+'px'; m.style.left=p[1]+'px'; }
+  var create = function() {
+    var s; if (document.all && !window.opera) {
+      s='<object id="fm_menu_menu" width="1004px" height="172px" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" '
+        +'codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0">'
+        +'<param name="quality" value="high" /><param name="scale" value="noscale" /><param name="salign" value="LT" />'
+        +'<param name="movie" value="menu.swf" /><param name="menu" value="false" />'
+        +'<param name="wmode" value="transparent" /></object>'; }
+    else {
+      s='<embed type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" '
+        +'id="fm_menu_menu" width="1004px" height="28px" src="menu.swf" wmode="transparent" '
+        +'flashvars="callback=fm_menu" quality="high" scale="noscale" menu="false" salign="LT" />'; }
+    var p=getPos(); var m=document.createElement('div'); m.id='fm_wrapper_menu'; m.style.position='absolute';
+    m.style.zIndex='100'; m.style.top=p[0]+'px'; m.style.left=p[1]+'px'; m.innerHTML=s;
+    document.body.insertBefore(m, document.body.firstChild); setInterval(move, 500); }();
+  return {
+    expand: function() {
+      document.getElementById('fm_menu_menu').style.height='172px'; },
+    collapse: function() {
+      document.getElementById('fm_menu_menu').style.height='28px';
+ }};}();//]]></script>
+<!-- End Publishing Scripts of Flash Menu menu -->
+

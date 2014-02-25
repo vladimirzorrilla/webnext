@@ -1,0 +1,2 @@
+c:\X\bin\bcc32 -M -c -O2 -Ic:\X\include -tW -oC:\educar\OBJ32\dllcall.obj  C:\educar\OBJ32\dllcall.c
+

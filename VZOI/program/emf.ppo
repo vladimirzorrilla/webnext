@@ -1,0 +1,194 @@
+#line 1 "Fivewin.ch"
+#line 1 "Dialog.ch"
+#line 32 "Fivewin.ch"
+#line 1 "Font.ch"
+#line 33 "Fivewin.ch"
+#line 1 "Ini.ch"
+#line 34 "Fivewin.ch"
+#line 1 "Menu.ch"
+#line 35 "Fivewin.ch"
+#line 1 "Print.ch"
+#line 36 "Fivewin.ch"
+#line 1 "Colors.ch"
+#line 39 "Fivewin.ch"
+#line 1 "DLL.ch"
+#line 40 "Fivewin.ch"
+#line 1 "Folder.ch"
+#line 41 "Fivewin.ch"
+#line 1 "Objects.ch"
+#line 1 "hbclass.ch"
+#line 1 "hbsetup.ch"
+#line 74 "hbclass.ch"
+#line 1 "hboo.ch"
+#line 75 "hbclass.ch"
+DECLARE HBClass New(cName AS String,OPTIONAL SuperParams ) AS CLASS HBClass Create() AS Object Instance() AS Object AddClsMethod(cName AS String,@MethodName(),nScope AS Numeric,n2 AS Numeric,n3 AS Numeric ) AddMultiClsData(cType AS String,uVal,nScope AS Numeric,aDatas AS Array OF String ) AddMultiData(cType AS String,uVal,nScope AS Numeric,aDatas AS Array OF String,x AS LOGICAL,lPer AS LOGICAL ) AddMethod(cName AS String,@MethodName(),nScope AS Numeric,lPersistent AS LOGICAL ) AddInLine(cName AS String,bBlock AS CodeBlock,nScope AS Numeric,lPersistent AS LOGICAL ) AddVirtual(cName AS String )
+#line 6 "Objects.ch"
+#line 43 "Fivewin.ch"
+#line 1 "ODBC.ch"
+#line 45 "Fivewin.ch"
+#line 1 "DDE.ch"
+#line 46 "Fivewin.ch"
+#line 1 "Video.ch"
+#line 47 "Fivewin.ch"
+#line 1 "VKey.ch"
+#line 48 "Fivewin.ch"
+#line 1 "Tree.ch"
+#line 49 "Fivewin.ch"
+#line 1 "WinApi.ch"
+#line 1 "FwMsgs.h"
+#line 5 "WinApi.ch"
+#line 50 "Fivewin.ch"
+extern errorsys
+#line 2 "c:\SGMTO\program\emf.prg"
+#line 1 "Struct.ch"
+#line 3 "c:\SGMTO\program\emf.prg"
+
+static hGDI32
+
+FUNCTION DIBUJO7()
+
+    LOCAL oWnd
+
+    LOCAL cEMF := "TEST.EMF"
+
+    oWnd := TWindow():New(,,,,,,,,,,,,,,,,!.F.,!.F.,!.F.,!.F.,.F. )
+
+
+
+    oWnd:Activate(Upper("MAXIMIZED") ,oWnd:bLClicked,oWnd:bRClicked,oWnd:bMoved,oWnd:bResized,oWnd:bPainted := { | hDC,cPS | DRAWEMF(oWnd,cEMF ) } ,oWnd:bKeyDown,oWnd:bInit,,,,,,,,,,,oWnd:bLButtonUp )
+
+    RETURN NIL
+
+
+
+
+
+
+
+
+STATIC FUNCTION CREATEEMF(oWnd,hDCRef,cEMF )
+
+    LOCAL nHorzSize := GETDEVICECAPS(hDCRef,4 )
+    LOCAL nVertSize := GETDEVICECAPS(hDCRef,6 )
+
+    LOCAL nHorzRes := GETDEVICECAPS(hDCRef,8 )
+    LOCAL nVertRes := GETDEVICECAPS(hDCRef,10 )
+
+    LOCAL nMMPixelX := nHorzSize * 100 / nHorzRes
+    LOCAL nMMPixelY := nVertSize * 100 / nVertRes
+
+    LOCAL aRect := GETCLIENTRECT(oWnd:hWnd )
+
+    LOCAL hDC,hEMF,hPen
+
+    LOCAL oRect
+
+    aRect[ 1 ] *= nMMPixelY
+    aRect[ 2 ] *= nMMPixelX
+    aRect[ 3 ] *= nMMPixelY
+    aRect[ 4 ] *= nMMPixelX
+
+    oRect := ThisStruct(TStruct():New() )
+        ThisStruct():AddMember("nLeft",7,) ;
+        ThisStruct():AddMember("nTop",7,) ;
+        ThisStruct():AddMember("nRight",7,) ;
+        ThisStruct():AddMember("nBottom",7,) ;
+    ThisStruct(nil )
+
+    oRect:nLeft = aRect[ 2 ]
+    oRect:nTop = aRect[ 1 ]
+    oRect:nRight = aRect[ 4 ]
+    oRect:nBottom = aRect[ 3 ]
+
+    hDC = CREATEENHMETAFILE(hDCRef,cEMF,oRect:cBuffer,"Test" + CHR(0 ) + "Creating EMFs..." + CHR(0 ) + CHR(0 ) )
+
+    hPen = CREATEPEN(0,1,128 )
+
+    MOVETO32(hDC,0,0,0 )
+
+    aRect = GETCLIENTRECT(oWnd:hWnd )
+
+    LINETO32(hDC,aRect[ 4 ],aRect[ 3 ] )
+
+    DELETEOBJECT(hPen )
+
+    hEMF = CLOSEENHMETAFILE(hDC )
+
+    DELETEENHMETAFILE(hEMF )
+
+    RETURN NIL
+
+
+STATIC FUNCTION DRAWEMF(oWnd,cEMF )
+
+    LOCAL hDC := GETDC32(GETHWND32(oWnd:hWnd ) )
+
+    LOCAL oRect,aRect
+
+    LOCAL hEMF
+
+    CREATEEMF(oWnd,hDC,cEMF )
+
+    hEMF = GETENHMETAFILE(cEMF )
+
+    oRect := ThisStruct(TStruct():New() )
+        ThisStruct():AddMember("nLeft",7,) ;
+        ThisStruct():AddMember("nTop",7,) ;
+        ThisStruct():AddMember("nRight",7,) ;
+        ThisStruct():AddMember("nBottom",7,) ;
+    ThisStruct(nil )
+
+    aRect = GETCLIENTRECT(oWnd:hWnd )
+
+    oRect:nLeft = aRect[ 2 ]
+    oRect:nTop = aRect[ 1 ]
+    oRect:nRight = aRect[ 4 ]
+    oRect:nBottom = aRect[ 3 ]
+
+    PLAYENHMETAFILE(hDC,hEMF,oRect:cBuffer )
+
+    DELETEENHMETAFILE(hEMF )
+
+    RELEASEDC32(hDC )
+
+    RETURN NIL
+
+init procedure LoadGdi32
+
+   hGDI32 = LoadLib32("gdi32.dll" )
+
+return
+
+exit procedure FreeGdi32
+
+   FreeLib32(hGDI32 )
+
+return
+
+
+ function CREATEENHMETAFILE(hDCRef ,cFilename,cRect,cDescription ) ; local hDLL := If(ValType(hGDI32 ) == "N",hGDI32,LoadLibrary("hGDI32" ) ) ; local uResult ; local cFarProc ; if Abs(hDLL ) > 32 ; cFarProc = GetProcAddress(hDLL,If(Empty("CreateEnhMetaFileA" ) == .t.,"CREATEENHMETAFILE","CreateEnhMetaFileA" ),.T.,7,7 ,9,9,9 ) ; uResult = CallDLL(cFarProc,hDCRef ,cFilename,cRect,cDescription ) ;IIF(ValType(hGDI32 ) == "N",,FreeLibrary(hDLL ) ); else ; MsgAlert("Error code: " + LTrim(Str(hDLL ) ) + " loading " + hGDI32 ) ; end ; return uResult
+
+
+ function CLOSEENHMETAFILE(hDC ) ; local hDLL := If(ValType(hGDI32 ) == "N",hGDI32,LoadLibrary("hGDI32" ) ) ; local uResult ; local cFarProc ; if Abs(hDLL ) > 32 ; cFarProc = GetProcAddress(hDLL,If(Empty("CloseEnhMetaFile" ) == .t.,"CLOSEENHMETAFILE","CloseEnhMetaFile" ),.T.,7,7 ) ; uResult = CallDLL(cFarProc,hDC ) ;IIF(ValType(hGDI32 ) == "N",,FreeLibrary(hDLL ) ); else ; MsgAlert("Error code: " + LTrim(Str(hDLL ) ) + " loading " + hGDI32 ) ; end ; return uResult
+
+
+ function DELETEENHMETAFILE(hEMF ) ; local hDLL := If(ValType(hGDI32 ) == "N",hGDI32,LoadLibrary("hGDI32" ) ) ; local uResult ; local cFarProc ; if Abs(hDLL ) > 32 ; cFarProc = GetProcAddress(hDLL,If(Empty("DeleteEnhMetaFile" ) == .t.,"DELETEENHMETAFILE","DeleteEnhMetaFile" ),.T.,5,7 ) ; uResult = CallDLL(cFarProc,hEMF ) ;IIF(ValType(hGDI32 ) == "N",,FreeLibrary(hDLL ) ); else ; MsgAlert("Error code: " + LTrim(Str(hDLL ) ) + " loading " + hGDI32 ) ; end ; return uResult
+
+
+ function GETENHMETAFILE(cMetaFile ) ; local hDLL := If(ValType(hGDI32 ) == "N",hGDI32,LoadLibrary("hGDI32" ) ) ; local uResult ; local cFarProc ; if Abs(hDLL ) > 32 ; cFarProc = GetProcAddress(hDLL,If(Empty("GetEnhMetaFileA" ) == .t.,"GETENHMETAFILE","GetEnhMetaFileA" ),.T.,7,9 ) ; uResult = CallDLL(cFarProc,cMetaFile ) ;IIF(ValType(hGDI32 ) == "N",,FreeLibrary(hDLL ) ); else ; MsgAlert("Error code: " + LTrim(Str(hDLL ) ) + " loading " + hGDI32 ) ; end ; return uResult
+
+
+ function PLAYENHMETAFILE(hDC ,hEMF,cRect ) ; local hDLL := If(ValType(hGDI32 ) == "N",hGDI32,LoadLibrary("hGDI32" ) ) ; local uResult ; local cFarProc ; if Abs(hDLL ) > 32 ; cFarProc = GetProcAddress(hDLL,If(Empty("PlayEnhMetaFile" ) == .t.,"PLAYENHMETAFILE","PlayEnhMetaFile" ),.T.,5,7 ,7,9 ) ; uResult = CallDLL(cFarProc,hDC ,hEMF,cRect ) ;IIF(ValType(hGDI32 ) == "N",,FreeLibrary(hDLL ) ); else ; MsgAlert("Error code: " + LTrim(Str(hDLL ) ) + " loading " + hGDI32 ) ; end ; return uResult
+
+
+
+ function MOVETO32(hDC ,nX,nY,cPoint ) ; local hDLL := If(ValType(hGDI32 ) == "N",hGDI32,LoadLibrary("hGDI32" ) ) ; local uResult ; local cFarProc ; if Abs(hDLL ) > 32 ; cFarProc = GetProcAddress(hDLL,If(Empty("MoveToEx" ) == .t.,"MOVETO32","MoveToEx" ),.T.,5,7 ,7,7,9 ) ; uResult = CallDLL(cFarProc,hDC ,nX,nY,cPoint ) ;IIF(ValType(hGDI32 ) == "N",,FreeLibrary(hDLL ) ); else ; MsgAlert("Error code: " + LTrim(Str(hDLL ) ) + " loading " + hGDI32 ) ; end ; return uResult
+
+
+ function LINETO32(hDC ,nXEnd,nYEnd ) ; local hDLL := If(ValType(hGDI32 ) == "N",hGDI32,LoadLibrary("hGDI32" ) ) ; local uResult ; local cFarProc ; if Abs(hDLL ) > 32 ; cFarProc = GetProcAddress(hDLL,If(Empty("LineTo" ) == .t.,"LINETO32","LineTo" ),.T.,5,7 ,7,7 ) ; uResult = CallDLL(cFarProc,hDC ,nXEnd,nYEnd ) ;IIF(ValType(hGDI32 ) == "N",,FreeLibrary(hDLL ) ); else ; MsgAlert("Error code: " + LTrim(Str(hDLL ) ) + " loading " + hGDI32 ) ; end ; return uResult
+
+
+ function GETDC32(hWnd ) ; local hDLL := If(ValType("user32.dll" ) == "N","user32.dll",LoadLibrary("user32.dll" ) ) ; local uResult ; local cFarProc ; if Abs(hDLL ) > 32 ; cFarProc = GetProcAddress(hDLL,If(Empty("GetDC" ) == .t.,"GETDC32","GetDC" ),.T.,7,7 ) ; uResult = CallDLL(cFarProc,hWnd ) ;IIF(ValType("user32.dll" ) == "N",,FreeLibrary(hDLL ) ); else ; MsgAlert("Error code: " + LTrim(Str(hDLL ) ) + " loading " + "user32.dll" ) ; end ; return uResult
+
+
+ function RELEASEDC32(hWnd ,hDC ) ; local hDLL := If(ValType("user32.dll" ) == "N","user32.dll",LoadLibrary("user32.dll" ) ) ; local uResult ; local cFarProc ; if Abs(hDLL ) > 32 ; cFarProc = GetProcAddress(hDLL,If(Empty("ReleaseDC" ) == .t.,"RELEASEDC32","ReleaseDC" ),.T.,7,7 ,7 ) ; uResult = CallDLL(cFarProc,hWnd ,hDC ) ;IIF(ValType("user32.dll" ) == "N",,FreeLibrary(hDLL ) ); else ; MsgAlert("Error code: " + LTrim(Str(hDLL ) ) + " loading " + "user32.dll" ) ; end ; return uResult

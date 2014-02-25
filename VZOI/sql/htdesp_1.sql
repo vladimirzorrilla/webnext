@@ -1,0 +1,1 @@
+'SELECT '+xVZSELECT('htdesp_1')+' FROM tdesp'+XVZWHEREVISTA('htdesp_1')+XVZORDERVISTA('htdesp_1')

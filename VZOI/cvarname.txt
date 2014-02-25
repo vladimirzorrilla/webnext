@@ -1,0 +1,1 @@
+SELECT distri.distrito,provin.provincia FROM profesor LEFT JOIN distri ON profesor.dist_prof=distri.cod  LEFT JOIN provin ON profesor.prov_prof=provin.cod  WHERE profesor.ROW_ID=46

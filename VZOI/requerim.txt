@@ -1,0 +1,19 @@
+
+ Control de Pago
+ Control de Cursos
+ Control de Pago x Local
+ Lisatdo de Deudas de Alumnos
+ Consoliado de Puntaje de Alumno
+ iNgrteso de notas del docente
+ Asistencia de alumnos
+ Consolidado de x curso y capacidad de alumnos
+ Prorroga de pagos
+ Mora x prorroga
+
+
+ ingrteso de doc de alumnos    dni part nac  fotos    certiof estudios
+
+
+
+
+

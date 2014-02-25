@@ -1,0 +1,6 @@
+xHarbour Compiler build 0.82.0 (SimpLex)
+Copyright 1999-2003, http://www.xharbour.org http://www.harbour-project.org/
+Compiling 'c:\vzoi\program\DIGITAL.prg' and generating preprocessed output to 'c:\vzoi\program\DIGITAL.ppo'...
+ 100Lines 126, Functions/Procedures 12
+Generating C source output to 'c:\VZOI\obj32\DIGITAL.c'...
+Done.

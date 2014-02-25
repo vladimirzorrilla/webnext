@@ -1,0 +1,221 @@
+#line 1 "FiveWin.ch"
+#line 1 "Dialog.ch"
+#line 32 "FiveWin.ch"
+#line 1 "Font.ch"
+#line 33 "FiveWin.ch"
+#line 1 "Ini.ch"
+#line 34 "FiveWin.ch"
+#line 1 "Menu.ch"
+#line 35 "FiveWin.ch"
+#line 1 "Print.ch"
+#line 36 "FiveWin.ch"
+#line 1 "Colors.ch"
+#line 39 "FiveWin.ch"
+#line 1 "DLL.ch"
+#line 40 "FiveWin.ch"
+#line 1 "Folder.ch"
+#line 41 "FiveWin.ch"
+#line 1 "Objects.ch"
+#line 1 "hbclass.ch"
+#line 1 "hbsetup.ch"
+#line 74 "hbclass.ch"
+#line 1 "hboo.ch"
+#line 75 "hbclass.ch"
+DECLARE HBClass New(cName AS String,OPTIONAL SuperParams ) AS CLASS HBClass Create() AS Object Instance() AS Object AddClsMethod(cName AS String,@MethodName(),nScope AS Numeric,n2 AS Numeric,n3 AS Numeric ) AddMultiClsData(cType AS String,uVal,nScope AS Numeric,aDatas AS Array OF String ) AddMultiData(cType AS String,uVal,nScope AS Numeric,aDatas AS Array OF String,x AS LOGICAL,lPer AS LOGICAL ) AddMethod(cName AS String,@MethodName(),nScope AS Numeric,lPersistent AS LOGICAL ) AddInLine(cName AS String,bBlock AS CodeBlock,nScope AS Numeric,lPersistent AS LOGICAL ) AddVirtual(cName AS String )
+#line 6 "Objects.ch"
+#line 43 "FiveWin.ch"
+#line 1 "ODBC.ch"
+#line 45 "FiveWin.ch"
+#line 1 "DDE.ch"
+#line 46 "FiveWin.ch"
+#line 1 "Video.ch"
+#line 47 "FiveWin.ch"
+#line 1 "VKey.ch"
+#line 48 "FiveWin.ch"
+#line 1 "Tree.ch"
+#line 49 "FiveWin.ch"
+#line 1 "WinApi.ch"
+#line 1 "FwMsgs.h"
+#line 5 "WinApi.ch"
+#line 50 "FiveWin.ch"
+extern errorsys
+#line 5 "c:\SGMTO\program\SL.prg"
+#line 1 "Slider.ch"
+#line 6 "c:\SGMTO\program\SL.prg"
+
+static oWnd
+
+static oPen,oPen_,oBtn
+
+static oSlide,oSlide1,oSlide2,oSlide3
+
+
+
+function SL()
+
+   local cTitle := "Testing the Slider controls"
+
+   local oSay,cSay := Space(11 )
+
+   local nVar1 := 150,nVar2 := 100,nVar3 := 150
+
+
+
+   oWnd := TWindow():New(1,1,400,600,cTitle,,,,,,,,0,12632256,,,!.F.,!.F.,!.F.,!.F.,.T. )
+
+   oWnd:oMsgBar := TMsgBar():New(oWnd,cTitle,.F.,.T.,.T.,.T.,,,,!.T. )
+
+   oPen := TPen():New(,3,8388608,)
+   oPen_ := TPen():New(,3,12632256,)
+
+    oSay := TSay():New(10,130,{||cSay},oWnd,,,.F.,.F.,.F.,.T.,,,,,.F.,.F.,.F.,.F.,.F. )
+
+
+
+
+
+
+
+
+    oSlide1 := TSlider():New(30,20,{ | u | If( PCount()==0, nVar1, nVar1:= u ) },(.not..F.) .or. .T.,.T.,,60,300,11,.F.,oWnd,{|nVar|(cSay:= STR(nVar1 ),oSay:Refresh() )},{|nVar|Triangulo(nVar,nVar2,nVar3 )},310,33,.T.,,,,,.F.,.F. )
+
+
+
+
+
+
+
+
+
+   oSlide2 := TSlider():New(295,20,{ | u | If( PCount()==0, nVar2, nVar2:= u ) },(.not..F.) .or. .T.,,.T.,50,210,21,.T.,oWnd,{|nVar|Triangulo(nVar1,nVar,nVar3 )},{|nVar|Triangulo(nVar1,nVar,nVar3 )},210,33,.T.,,,,,.F.,.F. )
+
+
+   oBtn := TButton():New(305,250,"&Pulsa",oWnd,{||(oSlide2:Set(150),Triangulo(nVar1,nVar2,nVar3 ) )},62,18,,,.F.,.T.,.F.,,.F.,,,.F. )
+
+
+
+
+
+
+   oSlide3 := TSlider():New(65,360,{ | u | If( PCount()==0, nVar3, nVar3:= u ) },(.not..T.),,,80,280,2,.F.,oWnd,,{|nVar|Triangulo(nVar1,nVar2,nVar )},35,240,.T.,,,,,.F.,.F. )
+
+   TSay():New(75,400,{||"Max."},oWnd,,,.F.,.F.,.F.,.T.,,,,,.F.,.F.,.F.,.F.,.F. )
+   TSay():New(280,400,{||"Min."},oWnd,,,.F.,.F.,.F.,.T.,,,,,.F.,.F.,.F.,.F.,.F. )
+
+   TButton():New(200,450,"&Dialog",oWnd,{||Test_Dialog()},92,22,,,.F.,.T.,.F.,,.F.,,,.F. )
+   TButton():New(235,450,"&Resource",oWnd,{||Test_Resource()},92,22,,,.F.,.T.,.F.,,.F.,,,.F. )
+
+
+  oWnd:Activate(,oWnd:bLClicked,oWnd:bRClicked,oWnd:bMoved,oWnd:bResized,oWnd:bPainted := { | hDC,cPS | Triangulo(nVar1,nVar2,nVar3 ) } ,oWnd:bKeyDown,oWnd:bInit,,,,,,,,,,,oWnd:bLButtonUp )
+
+  oPen:End() ; oPen := nil
+  oPen_:End() ; oPen_ := nil
+
+return nil
+
+
+
+Function Test_Dialog()
+
+  local oDlg,oFont
+  local oSlide,oSay
+  local n,nVar := 0
+
+  oFont := TFont():New("Arial",0,-80,,.T.,,,,,,,,,,,,)
+
+
+  oDlg = TDialog():New(50,50,400,500,"Sliders dialog",,,.F.,,,,,oWnd,.T.,,,,,)
+
+
+    oSay := TSay():New(60,80,{||nVar},oDlg,,oFont,.T.,.F.,.T.,.T.,,,100,50,.F.,.F.,.F.,.F.,.F. )
+
+
+
+
+
+
+
+
+    oSlide := TSlider():New(10,20,{ | u | If( PCount()==0, nVar, nVar:= u ) },(.not..T.),,.T.,-20,20,11,.T.,oDlg,{|nVar|oSay:Refresh()},,42,160,.T.,,,,,.F.,.F. )
+
+   FOR n := -20 TO 20 STEP 4
+        TSay():New(n * 3.6 + 86,50,{||n},oDlg,,,.F.,.F.,.F.,.T.,,,12,10,.F.,.F.,.F.,.F.,.F. )
+   NEXT
+
+  oDlg:Activate(oDlg:bLClicked,oDlg:bMoved,oDlg:bPainted,.F.,,,,oDlg:bRClicked,)
+
+  oFont:End() ; oFont := nil
+
+return nil
+
+
+
+Function Test_Resource()
+
+  local oDlg,oSlide,oSlideA
+  local nVar := 1
+
+  
+
+  oDlg = TDialog():New(,,,,,"TEST_SLIDER",,.F.,,,,,oWnd,.F.,,,,,)
+
+
+
+
+
+
+
+   oSlideA := TSlider():Redefine(101,{ | u | If( PCount()==0, nVar, nVar:= u ) },(.not..T.),.T.,,10,0,11,.F.,oDlg,,,,16777215,8421504,16777215,.T. )
+
+
+
+
+
+
+
+   TSlider():Redefine(102,{ | u | If( PCount()==0, nVar, nVar:= u ) },(.not..T.),,.T.,0,10,11,.F.,oDlg,,,,128,12632256,8421376,.T. )
+
+
+
+
+
+
+
+
+   oSlide := TSlider():Redefine(201,{ | u | If( PCount()==0, nVar, nVar:= u ) },(.not..T.),,,1,0,,.F.,oDlg,{|nVar|(oSlide:Set(Round(nVar,0 ) ),IIF(nVar == 1,oSlideA:Enable(),oSlideA:Disable() ),MsgBeep() )},,,,,,.F. )
+
+  oDlg:Activate(oDlg:bLClicked,oDlg:bMoved,oDlg:bPainted,.F.,,,,oDlg:bRClicked,)
+
+return nil
+
+
+
+Static function Triangulo(nVal1,nVal2,nVal3 )
+
+
+
+  static nVar1 := -100,nVar2 := -100,nVar3 := -100
+
+  local hDC := GetDC(oWnd:hWnd )
+
+  MoveTo(hDC,nVar1,80 )
+  LineTo(hDC,nVar2,280,oPen_:hPen )
+  LineTo(hDC,320,nVar3,oPen_:hPen )
+  LineTo(hDC,nVar1,80,oPen_:hPen )
+
+  nVar1 := nVal1
+  nVar2 := nVal2
+  nVar3 := nVal3
+
+  MoveTo(hDC,nVal1,80 )
+  LineTo(hDC,nVal2,280,oPen:hPen )
+  LineTo(hDC,320,nVal3,oPen:hPen )
+  LineTo(hDC,nVal1,80,oPen:hPen )
+
+  ReleaseDC(oWnd:hWnd,hDC )
+
+return nil
+
+procedure AppSys
+
+return

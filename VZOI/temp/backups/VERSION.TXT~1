@@ -1,0 +1,83 @@
+ en palmira
+ as012009 codrcja  char 2
+
+
+ en colegio
+ RUIN RUEG 2 TABLAS NMUEVAS PÀRA GUARADR LOS RUBROS DE INGRESOS Y EGRESOS DE LA CAJA
+
+ 23/04
+ - crear campo dataconta en empresas
+
+
+ MATRICSOFT  VERSION 1.0
+
+
+
+ 20/03/2009
+ - Se incorporo Acceso por usuarios
+
+ - Se implemento control de opciones por PC
+
+ - Se rediseño el gestor de usuarios ahora se
+      editan ofertas carreras y cursos en una sola
+      pantalla
+
+EN NOTAS HAY QUE CREAR NUM_MATRIC Y LOS CAMPOS DE NOTAS DEBE SER NOT NULL
+
+
+el campo BAJA debe ser NOT NULL
+
+ - CREAR LOS SGTES CAMPOS EN
+
+   RECCTA  CHAR 15  EN AS012006
+
+   PERIODO C5   EN  HORARIO,MATRICULA,MATRICUR,ASISCUR,NOTAS,pagos,asistencia,as012006
+
+ SE CREA LA TABLA PERIODOS
+
+ se crea la tablas menu
+
+ cod_usuario N_menu  titulo   action
+
+ *****************************
+ PENDIENTES A ENTREGAR
+ ********************************
+
+ menus x usuario
+ configurafion de cod de alumnos
+ los alumno s de computacoin con una C
+ que el cod q comiemza con una letra
+    C computacoopn
+    G Gourmet
+    A asminisytracion
+
+
+ las notas
+ 4 periodos
+
+ semestre se divide en 4 notas asu vez en 3 notas
+
+
+
+ campo observaciones en la asistencia
+ emite una boleta paga un aparte emite otro recibo
+
+
+
+
+/// BORRAR REGISTRO EN EL CORNOGRANA BOOROR EN VASE AL DOC Y Q PASA SI EN
+ANNOS PASADOS SE RUVO UN DOC IGUIAL BORRA TODO DEBE HAVER UN ANNO AHO
+
+
+ VOLVER A CARGAR LA TABLA MENU
+ VOLVER A CRAGRA LA TABLA PERIODO
+
+
+
+
+
+
+
+
+
+

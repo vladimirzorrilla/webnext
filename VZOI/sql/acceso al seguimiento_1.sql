@@ -1,0 +1,1 @@
+'SELECT '+xVZSELECT('Acceso al Seguimiento_1')+' FROM tdesp'+XVZWHEREVISTA('Acceso al Seguimiento_1')+XVZORDERVISTA('Acceso al Seguimiento_1')

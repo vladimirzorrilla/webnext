@@ -1,0 +1,94 @@
+CONTROL DE PAGO DE PROFESORES POR HORA
+SE DUOLKICA EL ERESUMEN DE ASISTENCIA
+
+FOLDER
+XBROWSE
+VZVISTA
+
+sale error en resumne de asistencua aula-102
+LEN(APADRON ) = 6
+
+LEN(APADRON[1] ) = 5
+
+LEN ACURSOS = 1
+LEN( OBR:ACOLS ) = 5
+
+
+fala impriumri el detalle de asistencua y ordenarlo por fecha
+
+detalle de noas sale error y falta imprimir
+el recreo lo saca como un curso
+
+estadisricas de asistencia por rangos de fechas
+flujograma por rangos de fechas
+
+impresion de la emision de boletas
+
+Control de moroso debe de conmtremplare la fecha de vencimiento
+
+en proyeccion de cobranzas falta poner el nombre del alumno
+por turno y curso
+y un total general de lo q voy a cobrar
+
+los q no han pagado y quienes faltam cobrar
+
+en caliifcacion es de alumnos solo debven salir los matriculados
+
+flata el boton imprimir en calificaciones de notas
+
+LAS GRAFICAS DEBE SALIR CON LA VENTANA AJUSTADA
+
+Deberia de haber una opcion mas en la el vztabla
+************************************************
+
+faltan filtros en la tabla de alumnos
+debe grabarse en la matriocual los filtros ultimos usados
+necesitamos un modelo de ficha de matrocula para que se imprime
+
+falta imprimir la asistencua del alumno
+
+
+
+FUNCTION REPORTE
+PRINT oPrn NAME 'MANTENIMIENTO' PREVIEW
+oprn:SETportrait()
+oIMG:=TIMAGE():NEW()
+oIMG:LoadBmp('IMAGEN.BMP' )
+PAGE
+aTam := oPrn:Cmtr2Pix(21.25,27.5)
+oPrn:SayImage(0,0,oIMG,aTam[1],aTam[2])
+ENDPAGE
+ENDPRINT
+oIMG:END()
+RETURN NIL
+
+
+FUNCTION REPORTE
+PRINT oPrn NAME 'MANTENIMIENTO' PREVIEW
+oprn:SETportrait()
+oIMG:=TIMAGE():NEW()
+oIMG:LoadBmp('IMAGEN.BMP' )
+PAGE
+aTam := oPrn:Cmtr2Pix(21.25,27.5)
+oPrn:SayImage(0,0,oIMG,aTam[1],aTam[2])
+ENDPAGE
+ENDPRINT
+oIMG:END()
+
+RETURN NIL
+
+
+
+/// asi debe ser
+
+
+22|26|69|18|EMPRESA()|0| |-11,0,0,0,400,F,F,F,0,3,2,1,34,Tahoma
+22|488|111|18|'PAG. '+LTRIM(STR(PAG()))|0| |-11,0,0,0,400,F,F,F,0,3,2,1,34,Tahoma
+41|26|149|18|'FECHA      :'+DTOC(DATE())|0| |-11,0,0,0,400,F,F,F,0,3,2,1,34,Tahoma
+77|264|100|100|   |0|BOX|-11,0,0,0,400,F,F,F,0,3,2,1,34,Tahoma
+97|69|433|18|'Listado de Prueba'|0| |-15,0,0,0,700,F,F,F,0,3,2,1,34,Arial
+
+77|264|100|100|"BITMAP\_VZBMP.BMP"|0|IMAGE|-11,0,0,0,400,F,F,F,0,3,2,1,34,Tahoma
+
+77|264|100|100|VZ("10->FOTO")|0|IMAGE|-11,0,0,0,400,F,F,F,0,3,2,1,34,Tahoma
+

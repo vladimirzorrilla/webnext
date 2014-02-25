@@ -1,0 +1,1 @@
+c:\x\bin\harbour c:\vzoi\program\DIGITAL.prg /n /ic:\x\include /oc:\VZOI\obj32\DIGITAL.c /p >resu.txt
